@@ -20,7 +20,7 @@ import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
 import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
-import { PROJECT_TITLE } from "~/lib/constants";
+import { PROJECT_TITLE, UNFOLLOWERS_LIMIT } from "~/lib/constants";
 
 function UnfollowersList({ unfollowers }: { unfollowers: any[] }) {
   return (
@@ -69,7 +69,7 @@ export default function Frame() {
 
       setAddFrameResult(`Error: ${error}`);
     }
-  }, []);
+  }, [session?.user?.fid]);
 
   const fetchUnfollowers = useCallback(async (fid: number) => {
     try {
@@ -172,7 +172,7 @@ export default function Frame() {
         sdk.removeAllListeners();
       };
     }
-  }, [isSDKLoaded, addFrame]);
+  }, [isSDKLoaded, addFrame, fetchUnfollowers, session?.user?.fid]);
 
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
