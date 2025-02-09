@@ -22,11 +22,11 @@ import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE, UNFOLLOWERS_LIMIT } from "~/lib/constants";
 
-function UnfollowersList({ unfollowers }: { unfollowers: any[] }) {
+function UnfollowersList({ unfollowers, username }: { unfollowers: any[]; username?: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Recent Unfollowers</CardTitle>
+        <CardTitle>{username ? `Recent Unfollowers of @${username}` : 'Recent Unfollowers'}</CardTitle>
         <CardDescription>Last {UNFOLLOWERS_LIMIT} users who unfollowed you</CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -207,7 +207,7 @@ export default function Frame() {
           </Card>
         ) : (
           <>
-            <UnfollowersList unfollowers={unfollowers} />
+            <UnfollowersList unfollowers={unfollowers} username={session?.user?.username} />
             <div className="mt-4 text-center text-sm text-muted-foreground">
               Updated: {new Date().toLocaleTimeString()}
             </div>
