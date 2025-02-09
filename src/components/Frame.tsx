@@ -20,7 +20,7 @@ import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
 import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
-import { PROJECT_TITLE, UNFOLLOWERS_LIMIT } from "~/lib/constants";
+import { PROJECT_TITLE, UNFOLLOWERS_LIMIT, NEYNAR_API_URL } from "~/lib/constants";
 
 function UnfollowersList({ unfollowers, username }: { unfollowers: any[]; username?: string }) {
   return (
@@ -71,7 +71,7 @@ export default function Frame() {
     }
   }, [session?.user?.fid]);
 
-  const fetchUnfollowers = useCallback(async (fid: number) => {
+  const fetchUnfollowers = useCallback(async (fid: number) => { // eslint-disable-line react-hooks/exhaustive-deps
     try {
       setIsLoading(true);
       setError(null);
